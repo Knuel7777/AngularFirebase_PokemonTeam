@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "poketeam-4c11d": {
+      "hosting": {
+        "AngularFirebase_PokemonTeam": [
+          "poketeam-4c11d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "poketeam-4c11d"
+  }
+}
