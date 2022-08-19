@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getPokemonInformation } from '../../services';
+import { getPokemonInformation  } from '../../services';
 import { pokemonTeam } from '../../models';
 
 @Component({
@@ -18,7 +18,7 @@ export class TeamComponent implements OnInit {
   constructor(
     public getPokemonInformation: getPokemonInformation
   ) {
-    this.local  = JSON.parse(localStorage.getItem('myTeam')!)
+    /*this.local  = JSON.parse(localStorage.getItem('myTeam')!)
 
     if(this.local != null) {
       this.local.forEach(e => {
@@ -28,10 +28,11 @@ export class TeamComponent implements OnInit {
         }
         this.myPokemonTeam.push(myPokemon);
       });
-    }
+    }*/
   }
 
   ngOnInit(): void {
+    this.getPokemonTeam();
   }
 
   getPokemon() {
@@ -51,22 +52,29 @@ export class TeamComponent implements OnInit {
       img: this.imgPokemon
     }
 
-    this.myPokemonTeam.push(myPokemon);
+    //this.myPokemonTeam.push(myPokemon);
 
-    localStorage.setItem('myTeam', JSON.stringify(this.myPokemonTeam))
+    //localStorage.setItem('myTeam', JSON.stringify(this.myPokemonTeam));
+
+    this.getPokemonInformation.savePokemonTeam(myPokemon);
 
     this.namePokemon = '';
     this.imgPokemon = '';
     this.view = false;
   }
 
-  deletePokemonToMyTeam(name: string) {
-    localStorage.removeItem('myTeam');
-    //localStorage.clear();
-
-    this.myPokemonTeam = this.myPokemonTeam.filter(i => i.name !== name);
-
-    localStorage.setItem('myTeam', JSON.stringify(this.myPokemonTeam));
+  getPokemonTeam() {
+    this.getPokemonInformation.getPokemon().subscribe(p => {
+      this.myPokemonTeam = p;
+    });
   }
 
+  deletePokemonToMyTeam(id?: string) {
+    //localStorage.removeItem('myTeam');
+    //localStorage.clear();
+    //this.myPokemonTeam = this.myPokemonTeam.filter(i => i.name !== name);
+    //localStorage.setItem('myTeam', JSON.stringify(this.myPokemonTeam));
+    console.log(id);
+    this.getPokemonInformation.deletePokemon(id);
+  }
 }

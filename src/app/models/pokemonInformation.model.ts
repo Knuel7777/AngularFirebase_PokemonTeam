@@ -12,6 +12,7 @@ export class Artwork {
 }
 
 export interface pokemonTeam {
+    Id?: string;
     name: string;
     img: string;
 }
